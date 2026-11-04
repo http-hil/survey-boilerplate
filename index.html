@@ -4,9 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Start a project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="survey.css">
   <script src="survey.js" defer></script>
   <style>body { margin: 0; }</style>
@@ -185,7 +182,7 @@
 
     <div class="survey-step" data-step role="group" aria-labelledby="q10">
       <div class="survey-column">
-        <h2 class="survey-question" id="q10">What from your current <span data-fill="project">website</span> should we keep?</h2>
+        <h2 class="survey-question" id="q10">What should we keep from your current brand?</h2>
         <div class="survey-answer">
           <div class="survey-chips" role="group" aria-labelledby="q10">
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Logo"><span>Logo</span></label>
@@ -196,7 +193,7 @@
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Icons"><span>Icons</span></label>
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Copy"><span>Copy</span></label>
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Video"><span>Video</span></label>
-            <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Nothing yet"><span>Nothing yet</span></label>
+            <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Something else" data-other-check><input class="survey-other" type="text" name="keep-other" placeholder="Something else" aria-label="Something else" autocomplete="off" data-other-text></label>
           </div>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
@@ -248,7 +245,7 @@
         <h2 class="survey-question" id="q13">How much control do you need within the <span data-fill="project">website</span>?</h2>
         <div class="survey-answer">
           <div class="survey-choices" role="radiogroup" aria-labelledby="q13">
-            <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="Everything, plus AI access (MCP)"><span class="survey-choice-label">Everything, plus AI access (MCP)</span><span class="survey-indicator" aria-hidden="true"></span></label>
+            <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="Full control through my favorite LLM"><span class="survey-choice-label">Full control through my favorite LLM</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="I want to edit everything"><span class="survey-choice-label">I want to edit everything</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="Text and images"><span class="survey-choice-label">Text and images</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="Only blog posts"><span class="survey-choice-label">Only blog posts</span><span class="survey-indicator" aria-hidden="true"></span></label>

@@ -2,7 +2,9 @@
 
 A client-intake survey that asks the questions senior designers ask. One question per screen, black and white, Geist, every value in a token.
 
-Three files, no build, no dependencies: `index.html`, `survey.css`, `survey.js`.
+Three files and a font, no build, no dependencies: `index.html`, `survey.css`, `survey.js`, `fonts/`. Works offline.
+
+**Demo:** [http-hil.github.io/survey-boilerplate](https://http-hil.github.io/survey-boilerplate/?company=Northwind&project=website)
 
 ## Start
 
@@ -18,7 +20,7 @@ Everything visual lives in the `:root` tokens at the top of `survey.css`:
 | --- | --- |
 | `--color-bg`, `--color-fg` | Background and text, light and dark |
 | `--color-accent` | Buttons and selected options. Points at `--color-fg` by default |
-| `--font-sans` | The one font. Swap the Google Fonts link in `index.html` too |
+| `--font-sans` | The one font. Geist ships in `fonts/`. To swap, replace the file and the `@font-face` above the tokens |
 | `--radius-control` | `0px` is square. Try `12px` |
 | `--size-column` | Width of the question column |
 | `--ease`, `--duration-step` | How a question slides in |
@@ -92,9 +94,9 @@ Using Cal.com, Calendly or Google Calendar booking pages? Put their embed inside
 
 ## Put it in your own site
 
-- **Any site:** link `survey.css` and `survey.js`, paste the `.survey` block from `index.html`. The CSS only touches elements inside `.survey`.
+- **Any site:** link `survey.css` and `survey.js`, paste the `.survey` block from `index.html`. Keep `fonts/` next to `survey.css`. The CSS only touches elements inside `.survey`.
 - **React, Vue, Svelte:** render the same markup, then load `survey.js` after it mounts.
-- **Webflow:** paste the `.survey` block into an Embed element, and `survey.css` and `survey.js` into the page's custom code.
+- **Webflow:** paste the `.survey` block into an Embed element, and `survey.css` and `survey.js` into the page's custom code. Upload `fonts/Geist-Variable.woff2` under Site settings → Fonts as "Geist" and delete the `@font-face` block.
 
 The survey fills the screen (`100dvh`). Give it its own page. Remove `data-autofocus` from `.survey` if it sits lower on a page.
 
@@ -103,3 +105,5 @@ Without JavaScript it shows as one long form that still submits.
 ## License
 
 MIT. Use it for client work, change everything.
+
+Geist is by Vercel and basement.studio, under the SIL Open Font License (`fonts/OFL.txt`).

@@ -4,6 +4,16 @@
    Everything else is scoped to .survey, so it won't touch the rest of a page.
    ========================================================================== */
 
+/* Geist ships in fonts/ (one variable file, every weight), so it works offline.
+   Keep fonts/ next to this file. Swapping fonts? Replace the file and the family name. */
+@font-face {
+  font-family: "Geist";
+  src: url("fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-bg: #f9f6f1;
   --color-fg: #000000;
