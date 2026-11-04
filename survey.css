@@ -1,0 +1,566 @@
+/* ==========================================================================
+   Survey boilerplate
+   Rebrand here: every color, space, radius and font lives in these tokens.
+   Everything else is scoped to .survey, so it won't touch the rest of a page.
+   ========================================================================== */
+
+:root {
+  --color-bg: #f9f6f1;
+  --color-fg: #000000;
+  --color-muted: #757069;
+  --color-line: #e5e0d8;
+  --color-subtle: #f1ece4;
+  --color-accent: var(--color-fg);
+  --color-on-accent: var(--color-bg);
+
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+
+  --radius-control: 0px;
+  --radius-mark: 6px;
+  --radius-full: 999px;
+
+  --size-column: 640px;
+  --size-control: 44px;
+
+  --ease: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-step: 500ms;
+  --duration-press: 160ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #201e21;
+    --color-fg: #ffffff;
+    --color-muted: #8c878d;
+    --color-line: #3a373b;
+    --color-subtle: #2a282b;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #201e21;
+  --color-fg: #ffffff;
+  --color-muted: #8c878d;
+  --color-line: #3a373b;
+  --color-subtle: #2a282b;
+}
+
+/* Base ------------------------------------------------------------------- */
+
+.survey,
+.survey *,
+.survey *::before,
+.survey *::after {
+  box-sizing: border-box;
+}
+
+.survey {
+  position: relative;
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font: 400 16px/24px var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  color-scheme: light dark;
+}
+
+.survey-form {
+  margin: 0;
+}
+
+/* Top bar: progress, logo, back. Never moves. ------------------------------ */
+
+.survey-bar {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+}
+
+.survey-progress {
+  height: 2px;
+  background: var(--color-line);
+}
+
+.survey-progress-value {
+  height: 100%;
+  background: var(--color-fg);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+  transition: transform var(--duration-step) var(--ease);
+}
+
+.survey-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-24) var(--space-32);
+}
+
+.survey-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: inherit;
+  font: 600 16px/21px var(--font-sans);
+  text-decoration: none;
+}
+
+.survey-logo-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-mark);
+  background: var(--color-fg);
+}
+
+.survey-back {
+  display: grid;
+  place-items: center;
+  width: var(--size-control);
+  height: var(--size-control);
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-fg);
+  cursor: pointer;
+  transition: background-color 120ms, opacity 200ms, transform var(--duration-press) ease;
+}
+
+.survey-back:hover {
+  background: var(--color-subtle);
+}
+
+.survey-back:active {
+  transform: scale(0.97);
+}
+
+.survey-back:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.survey-back svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Steps: one full-screen panel per question --------------------------------- */
+
+.survey-step {
+  display: grid;
+  outline: none;
+  place-items: safe center;
+  min-height: 100dvh;
+  padding: var(--space-96) var(--space-32);
+}
+
+.survey-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+  width: 100%;
+  max-width: var(--size-column);
+}
+
+.survey-question {
+  margin: 0;
+  font: 500 40px/44px var(--font-sans);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.survey-note {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.survey-answer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.survey-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-24);
+}
+
+/* Text fields --------------------------------------------------------------- */
+
+.survey-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.survey-field {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 var(--space-12);
+  border: 0;
+  border-bottom: 1px solid var(--color-line);
+  border-radius: 0;
+  background: none;
+  color: var(--color-fg);
+  font: 400 20px/1.6 var(--font-sans);
+  letter-spacing: -0.01em;
+  caret-color: var(--color-accent);
+  outline: none;
+  resize: none;
+  transition: border-color 160ms;
+}
+
+.survey-field::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
+.survey-field:focus {
+  border-color: var(--color-fg);
+}
+
+textarea.survey-field {
+  min-height: 140px;
+  field-sizing: content;
+}
+
+/* Choices: radio (single) and checkbox (multi) rows ------------------------ */
+
+.survey-choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.survey-choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-20);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: var(--color-bg);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 120ms, border-color 120ms, transform var(--duration-press) ease;
+}
+
+.survey-choice:hover {
+  background: var(--color-subtle);
+}
+
+.survey-choice:active:not(:has(.survey-other:active)) {
+  transform: scale(0.99);
+}
+
+.survey-choice:has(:checked) {
+  border-color: var(--color-fg);
+  background: var(--color-bg);
+}
+
+.survey-choice:has(.survey-input:focus-visible),
+.survey-chip:has(.survey-input:focus-visible) {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 2px;
+}
+
+.survey-choice-label {
+  flex: 1;
+}
+
+/* The real input stays in the DOM for keyboard, forms and screen readers */
+.survey-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.survey-indicator {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-muted);
+  color: var(--color-on-accent);
+  transition: background-color 120ms, border-color 120ms;
+}
+
+.survey-choice:hover .survey-indicator {
+  border-color: var(--color-fg);
+}
+
+.survey-choice:has(:checked) .survey-indicator {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.survey-choice:has([type="radio"]) .survey-indicator {
+  border-radius: 50%;
+}
+
+.survey-choice:has([type="radio"]:checked) .survey-indicator::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-on-accent);
+}
+
+.survey-indicator svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+}
+
+.survey-choice:has(:checked) .survey-indicator svg {
+  opacity: 1;
+}
+
+/* "Something else" is a text field inside the row */
+.survey-other {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  cursor: text;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.survey-other::placeholder {
+  color: var(--color-muted);
+  font-style: italic;
+  opacity: 1;
+}
+
+/* Chips: many options, multi or single ------------------------------------- */
+
+.survey-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.survey-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.survey-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-12) var(--space-20);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 120ms, border-color 120ms, color 120ms, transform var(--duration-press) ease;
+}
+
+.survey-chip:hover {
+  background: var(--color-subtle);
+}
+
+.survey-chip:active:not(:has(.survey-other:active)) {
+  transform: scale(0.97);
+}
+
+.survey-chip:has(:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.survey-chip .survey-other {
+  flex: none;
+  width: 14ch;
+}
+
+@supports (field-sizing: content) {
+  .survey-chip .survey-other {
+    width: auto;
+    min-width: 4ch;
+    field-sizing: content;
+  }
+}
+
+.survey-chip:has(:checked) .survey-other::placeholder {
+  color: inherit;
+}
+
+/* Buttons ------------------------------------------------------------------ */
+
+.survey-next {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: var(--size-control);
+  padding: 0 var(--space-20);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font: 500 15px/20px var(--font-sans);
+  cursor: pointer;
+  transition: transform var(--duration-press) ease, opacity 120ms;
+}
+
+.survey-next:active {
+  transform: scale(0.97);
+}
+
+.survey-next svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+.survey-next[aria-busy="true"] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.survey-skip {
+  padding: var(--space-8) var(--space-4);
+  border: 0;
+  background: none;
+  color: var(--color-muted);
+  font: 500 15px/20px var(--font-sans);
+  cursor: pointer;
+  transition: color 120ms;
+}
+
+.survey-skip:hover {
+  color: var(--color-fg);
+}
+
+.survey-error {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.survey-error:empty {
+  display: none;
+}
+
+/* One step at a time (only once survey.js runs) ------------------------------
+   Without JavaScript the survey is one long form that still submits. */
+
+.survey.is-ready {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  overflow: clip; /* hidden can still scroll on focus; clip can't */
+}
+
+.survey.is-ready .survey-step {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition: transform var(--duration-step) var(--ease), visibility 0s linear var(--duration-step);
+}
+
+.survey.is-ready .survey-step[data-state="past"] {
+  transform: translateY(-100%);
+}
+
+.survey.is-ready .survey-step[data-state="current"] {
+  visibility: visible;
+  transform: none;
+  transition: transform var(--duration-step) var(--ease), visibility 0s;
+}
+
+.survey:not(.is-ready) .survey-bar {
+  position: static;
+}
+
+.survey:not(.is-ready) .survey-progress,
+.survey:not(.is-ready) .survey-back,
+.survey:not(.is-ready) .survey-done,
+.survey:not(.is-ready) .survey-skip,
+.survey:not(.is-ready) [data-survey-next] {
+  display: none;
+}
+
+.survey:not(.is-ready) .survey-step {
+  min-height: 0;
+  padding-block: var(--space-48);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .survey.is-ready .survey-step,
+  .survey.is-ready .survey-step[data-state="past"] {
+    opacity: 0;
+    transform: none;
+    transition: opacity 200ms ease, visibility 0s linear 200ms;
+  }
+
+  .survey.is-ready .survey-step[data-state="current"] {
+    opacity: 1;
+    transition: opacity 200ms ease, visibility 0s;
+  }
+}
+
+/* Mobile ------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .survey-header {
+    padding: var(--space-16) var(--space-20);
+  }
+
+  .survey-step {
+    padding: var(--space-96) var(--space-20) var(--space-48);
+  }
+
+  .survey-column {
+    gap: var(--space-32);
+  }
+
+  .survey-question {
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
+  }
+
+  .survey-answer {
+    gap: var(--space-24);
+  }
+
+  .survey-field {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  textarea.survey-field {
+    min-height: 112px;
+  }
+}
