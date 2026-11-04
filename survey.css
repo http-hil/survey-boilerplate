@@ -16,9 +16,9 @@
 
 :root {
   --color-bg: #f9f6f1;
-  --color-fg: #000000;
-  --color-muted: #757069;
-  --color-line: #e5e0d8;
+  --color-fg: #201e21;
+  --color-muted: #201e2180; /* fg at 50% */
+  --color-line: #201e2126; /* fg at 15% */
   --color-subtle: #f1ece4;
   --color-accent: var(--color-fg);
   --color-on-accent: var(--color-bg);
@@ -52,8 +52,8 @@
   :root:not([data-theme="light"]) {
     --color-bg: #201e21;
     --color-fg: #ffffff;
-    --color-muted: #8c878d;
-    --color-line: #3a373b;
+    --color-muted: #f9f6f180; /* 50% */
+    --color-line: #f9f6f126; /* 15% */
     --color-subtle: #2a282b;
   }
 }
@@ -61,8 +61,8 @@
 :root[data-theme="dark"] {
   --color-bg: #201e21;
   --color-fg: #ffffff;
-  --color-muted: #8c878d;
-  --color-line: #3a373b;
+  --color-muted: #f9f6f180; /* 50% */
+  --color-line: #f9f6f126; /* 15% */
   --color-subtle: #2a282b;
 }
 
@@ -210,10 +210,19 @@
 
 /* Text fields --------------------------------------------------------------- */
 
+/* Side by side when they fit, stacked on phones */
 .survey-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-24) var(--space-32);
+}
+
+.survey-label {
   display: flex;
   flex-direction: column;
-  gap: var(--space-24);
+  gap: var(--space-8);
+  color: var(--color-muted);
+  font: 400 13px/16px var(--font-sans);
 }
 
 .survey-field {

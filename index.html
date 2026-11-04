@@ -13,7 +13,8 @@
 <!--
   One [data-step] = one full-screen question. Copy a step to add one, delete a step to remove one.
   Answer types: textarea, .survey-choices (radio or checkbox), .survey-chips, .survey-fields.
-  Personal links fill [data-fill]: ?company=Northwind&project=brand
+  [data-fill="company"] shows the answer named "company", else ?company= from the link, else its own text.
+  Personal links: ?name=Sam&company=Northwind
   Answers go to the form's action (Formspree, Basin, your own API), or listen for "survey:submit".
 -->
 <div class="survey" data-survey data-autofocus>
@@ -30,13 +31,16 @@
 
   <form class="survey-form" name="project-brief" method="post" action="">
 
-    <!-- Part 1: the company -->
+    <!-- Who's answering. ?name= and ?company= in the link fill these in. -->
 
     <div class="survey-step" data-step role="group" aria-labelledby="q1">
       <div class="survey-column">
-        <h2 class="survey-question" id="q1">Can you explain in 2 sentences what <span data-fill="company">your company</span> does?</h2>
+        <h2 class="survey-question" id="q1">Let’s get this started.<br>Can you please introduce yourself.</h2>
         <div class="survey-answer">
-          <textarea class="survey-field" name="what-you-do" placeholder="Start typing" aria-labelledby="q1"></textarea>
+          <div class="survey-fields">
+            <label class="survey-label">Name<input class="survey-field" type="text" name="name" autocomplete="name" required></label>
+            <label class="survey-label">Company<input class="survey-field" type="text" name="company" autocomplete="organization"></label>
+          </div>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
@@ -44,11 +48,13 @@
       </div>
     </div>
 
+    <!-- Part 1: the company -->
+
     <div class="survey-step" data-step role="group" aria-labelledby="q2">
       <div class="survey-column">
-        <h2 class="survey-question" id="q2">Why do people pick you over the competition?</h2>
+        <h2 class="survey-question" id="q2">Can you explain in 2 sentences what <span data-fill="company">your company</span> does?</h2>
         <div class="survey-answer">
-          <textarea class="survey-field" name="why-you" placeholder="Start typing" aria-labelledby="q2"></textarea>
+          <textarea class="survey-field" name="what-you-do" placeholder="Start typing" aria-labelledby="q2"></textarea>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
@@ -58,9 +64,21 @@
 
     <div class="survey-step" data-step role="group" aria-labelledby="q3">
       <div class="survey-column">
-        <h2 class="survey-question" id="q3">What are the key values for <span data-fill="company">your company</span>?</h2>
+        <h2 class="survey-question" id="q3">Why do people pick you over the competition?</h2>
         <div class="survey-answer">
-          <div class="survey-chips" role="group" aria-labelledby="q3">
+          <textarea class="survey-field" name="why-you" placeholder="Start typing" aria-labelledby="q3"></textarea>
+          <div class="survey-actions">
+            <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="survey-step" data-step role="group" aria-labelledby="q4">
+      <div class="survey-column">
+        <h2 class="survey-question" id="q4">What are the key values for <span data-fill="company">your company</span>?</h2>
+        <div class="survey-answer">
+          <div class="survey-chips" role="group" aria-labelledby="q4">
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="values" value="Honesty"><span>Honesty</span></label>
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="values" value="Quality"><span>Quality</span></label>
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="values" value="Craft"><span>Craft</span></label>
@@ -86,11 +104,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q4">
+    <div class="survey-step" data-step role="group" aria-labelledby="q5">
       <div class="survey-column">
-        <h2 class="survey-question" id="q4">Where do you want <span data-fill="company">your company</span> to be in 3 years?</h2>
+        <h2 class="survey-question" id="q5">Where do you want <span data-fill="company">your company</span> to be in 3 years?</h2>
         <div class="survey-answer">
-          <textarea class="survey-field" name="three-years" placeholder="Start typing" aria-labelledby="q4"></textarea>
+          <textarea class="survey-field" name="three-years" placeholder="Start typing" aria-labelledby="q5"></textarea>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
@@ -100,16 +118,16 @@
 
     <!-- Part 2: the project -->
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q5">
+    <div class="survey-step" data-step role="group" aria-labelledby="q6">
       <div class="survey-column">
-        <h2 class="survey-question" id="q5">What are we building to help you reach those goals?</h2>
+        <h2 class="survey-question" id="q6">What are we building to help you reach those goals?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="group" aria-labelledby="q5">
-            <label class="survey-choice"><input class="survey-input" type="checkbox" name="building" value="Brand identity"><span class="survey-choice-label">Brand identity</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
-            <label class="survey-choice"><input class="survey-input" type="checkbox" name="building" value="Website"><span class="survey-choice-label">Website</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
-            <label class="survey-choice"><input class="survey-input" type="checkbox" name="building" value="Web app"><span class="survey-choice-label">Web app</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
-            <label class="survey-choice"><input class="survey-input" type="checkbox" name="building" value="Campaign"><span class="survey-choice-label">Campaign</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
-            <label class="survey-choice"><input class="survey-input" type="checkbox" name="building" value="Something else" data-other-check><input class="survey-other" type="text" name="building-other" placeholder="Something else, type here" aria-label="Something else" autocomplete="off" data-other-text><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
+          <div class="survey-choices" role="group" aria-labelledby="q6">
+            <label class="survey-choice"><input class="survey-input" type="checkbox" name="project" value="Brand identity"><span class="survey-choice-label">Brand identity</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
+            <label class="survey-choice"><input class="survey-input" type="checkbox" name="project" value="Website"><span class="survey-choice-label">Website</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
+            <label class="survey-choice"><input class="survey-input" type="checkbox" name="project" value="Web app"><span class="survey-choice-label">(Web) app</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
+            <label class="survey-choice"><input class="survey-input" type="checkbox" name="project" value="Campaign"><span class="survey-choice-label">Campaign</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
+            <label class="survey-choice"><input class="survey-input" type="checkbox" name="project" value="Something else" data-other-check><input class="survey-other" type="text" name="project-other" placeholder="Something else, type here" aria-label="Something else" autocomplete="off" data-other-text><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
           </div>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
@@ -118,11 +136,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q6">
+    <div class="survey-step" data-step role="group" aria-labelledby="q7">
       <div class="survey-column">
-        <h2 class="survey-question" id="q6">Why now?</h2>
+        <h2 class="survey-question" id="q7">What’s driving the new <span data-fill="project">project</span>?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="group" aria-labelledby="q6">
+          <div class="survey-choices" role="group" aria-labelledby="q7">
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="why-now" value="We’re launching something new"><span class="survey-choice-label">We’re launching something new</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="why-now" value="We raised funding"><span class="survey-choice-label">We raised funding</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="why-now" value="Our brand no longer fits"><span class="survey-choice-label">Our brand no longer fits</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
@@ -137,11 +155,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q7">
+    <div class="survey-step" data-step role="group" aria-labelledby="q8">
       <div class="survey-column">
-        <h2 class="survey-question" id="q7">What would make this <span data-fill="project">project</span> a success?</h2>
+        <h2 class="survey-question" id="q8">What would make this <span data-fill="project">project</span> a success?</h2>
         <div class="survey-answer">
-          <textarea class="survey-field" name="success" placeholder="Start typing" aria-labelledby="q7"></textarea>
+          <textarea class="survey-field" name="success" placeholder="Start typing" aria-labelledby="q8"></textarea>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
@@ -149,11 +167,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q8">
+    <div class="survey-step" data-step role="group" aria-labelledby="q9">
       <div class="survey-column">
-        <h2 class="survey-question" id="q8">What have you tried so far?</h2>
+        <h2 class="survey-question" id="q9">What have you tried so far?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="group" aria-labelledby="q8">
+          <div class="survey-choices" role="group" aria-labelledby="q9">
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="tried" value="Nothing yet"><span class="survey-choice-label">Nothing yet</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="tried" value="We did it ourselves"><span class="survey-choice-label">We did it ourselves</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="tried" value="A template or site builder"><span class="survey-choice-label">A template or site builder</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
@@ -168,11 +186,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q9">
+    <div class="survey-step" data-step role="group" aria-labelledby="q10">
       <div class="survey-column">
-        <h2 class="survey-question" id="q9">Which company/person is an inspiration to <span data-fill="company">your company</span>?</h2>
+        <h2 class="survey-question" id="q10">Which company/person is an inspiration to <span data-fill="company">your company</span>?</h2>
         <div class="survey-answer">
-          <textarea class="survey-field" name="inspiration" placeholder="Start typing" aria-labelledby="q9"></textarea>
+          <textarea class="survey-field" name="inspiration" placeholder="Start typing" aria-labelledby="q10"></textarea>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
@@ -180,11 +198,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q10">
+    <div class="survey-step" data-step role="group" aria-labelledby="q11">
       <div class="survey-column">
-        <h2 class="survey-question" id="q10">What should we keep from your current brand?</h2>
+        <h2 class="survey-question" id="q11">What should we keep from your current brand?</h2>
         <div class="survey-answer">
-          <div class="survey-chips" role="group" aria-labelledby="q10">
+          <div class="survey-chips" role="group" aria-labelledby="q11">
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Logo"><span>Logo</span></label>
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Colours"><span>Colours</span></label>
             <label class="survey-chip"><input class="survey-input" type="checkbox" name="keep" value="Typography"><span>Typography</span></label>
@@ -202,11 +220,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q11">
+    <div class="survey-step" data-step role="group" aria-labelledby="q12">
       <div class="survey-column">
-        <h2 class="survey-question" id="q11">When should this <span data-fill="project">project</span> go live?</h2>
+        <h2 class="survey-question" id="q12">When should this <span data-fill="project">project</span> go live?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="radiogroup" aria-labelledby="q11">
+          <div class="survey-choices" role="radiogroup" aria-labelledby="q12">
             <label class="survey-choice"><input class="survey-input" type="radio" name="go-live" value="As soon as possible"><span class="survey-choice-label">As soon as possible</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="go-live" value="Within a month"><span class="survey-choice-label">Within a month</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="go-live" value="In 1–3 months"><span class="survey-choice-label">In 1–3 months</span><span class="survey-indicator" aria-hidden="true"></span></label>
@@ -220,11 +238,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q12">
+    <div class="survey-step" data-step role="group" aria-labelledby="q13">
       <div class="survey-column">
-        <h2 class="survey-question" id="q12">What is your budget range?</h2>
+        <h2 class="survey-question" id="q13">What is your budget range?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="radiogroup" aria-labelledby="q12">
+          <div class="survey-choices" role="radiogroup" aria-labelledby="q13">
             <label class="survey-choice"><input class="survey-input" type="radio" name="budget" value="Under €10k"><span class="survey-choice-label">Under €10k</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="budget" value="€10k – €25k"><span class="survey-choice-label">€10k – €25k</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="budget" value="€25k – €50k"><span class="survey-choice-label">€25k – €50k</span><span class="survey-indicator" aria-hidden="true"></span></label>
@@ -240,11 +258,11 @@
 
     <!-- Part 3: the collaboration -->
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q13">
+    <div class="survey-step" data-step role="group" aria-labelledby="q14">
       <div class="survey-column">
-        <h2 class="survey-question" id="q13">How much control do you want once it’s live?</h2>
+        <h2 class="survey-question" id="q14">How much control do you want once it’s live?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="radiogroup" aria-labelledby="q13">
+          <div class="survey-choices" role="radiogroup" aria-labelledby="q14">
             <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="Full control through my favorite LLM"><span class="survey-choice-label">Full control through my favorite LLM</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="I want to edit everything"><span class="survey-choice-label">I want to edit everything</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="control" value="Text and images"><span class="survey-choice-label">Text and images</span><span class="survey-indicator" aria-hidden="true"></span></label>
@@ -258,11 +276,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q14">
+    <div class="survey-step" data-step role="group" aria-labelledby="q15">
       <div class="survey-column">
-        <h2 class="survey-question" id="q14">Who will I be working with during this project?</h2>
+        <h2 class="survey-question" id="q15">Who will I be working with during this project?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="radiogroup" aria-labelledby="q14">
+          <div class="survey-choices" role="radiogroup" aria-labelledby="q15">
             <label class="survey-choice"><input class="survey-input" type="radio" name="team" value="Just me"><span class="survey-choice-label">Just me</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="team" value="Me and a partner"><span class="survey-choice-label">Me and a partner</span><span class="survey-indicator" aria-hidden="true"></span></label>
             <label class="survey-choice"><input class="survey-input" type="radio" name="team" value="A small team"><span class="survey-choice-label">A small team</span><span class="survey-indicator" aria-hidden="true"></span></label>
@@ -275,11 +293,11 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q15">
+    <div class="survey-step" data-step role="group" aria-labelledby="q16">
       <div class="survey-column">
-        <h2 class="survey-question" id="q15">How do you like to give feedback?</h2>
+        <h2 class="survey-question" id="q16">How do you like to give feedback?</h2>
         <div class="survey-answer">
-          <div class="survey-choices" role="group" aria-labelledby="q15">
+          <div class="survey-choices" role="group" aria-labelledby="q16">
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="feedback" value="On a call"><span class="survey-choice-label">On a call</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="feedback" value="Written comments"><span class="survey-choice-label">Written comments</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
             <label class="survey-choice"><input class="survey-input" type="checkbox" name="feedback" value="Short videos"><span class="survey-choice-label">Short videos</span><span class="survey-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13.875 9.2 18 19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></span></label>
@@ -292,35 +310,19 @@
       </div>
     </div>
 
-    <div class="survey-step" data-step role="group" aria-labelledby="q16">
-      <div class="survey-column">
-        <h2 class="survey-question" id="q16">What does a great collaboration look like to you?</h2>
-        <div class="survey-answer">
-          <textarea class="survey-field" name="collaboration" placeholder="Start typing" aria-labelledby="q16"></textarea>
-          <div class="survey-actions">
-            <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact and next meeting -->
-
     <div class="survey-step" data-step role="group" aria-labelledby="q17">
       <div class="survey-column">
-        <h2 class="survey-question" id="q17">Where can we reach you?</h2>
+        <h2 class="survey-question" id="q17">What does a great collaboration look like to you?</h2>
         <div class="survey-answer">
-          <div class="survey-fields">
-            <input class="survey-field" type="text" name="name" placeholder="Name" aria-label="Name" autocomplete="name" required>
-            <input class="survey-field" type="text" name="company" placeholder="Company" aria-label="Company" autocomplete="organization">
-            <input class="survey-field" type="email" name="email" placeholder="Email" aria-label="Email" autocomplete="email" required>
-          </div>
+          <textarea class="survey-field" name="collaboration" placeholder="Start typing" aria-labelledby="q17"></textarea>
           <div class="survey-actions">
             <button class="survey-next" type="button" data-survey-next>Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- The next meeting. The last step submits. -->
 
     <div class="survey-step" data-step role="group" aria-labelledby="q18">
       <div class="survey-column">
@@ -347,7 +349,7 @@
           <p class="survey-error" role="alert" data-survey-error></p>
           <div class="survey-actions">
             <button class="survey-skip" type="button" data-survey-skip>Skip</button>
-            <button class="survey-next" type="submit">Continue<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
+            <button class="survey-next" type="submit">Send<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.25 4.75v10.5H4.75M7.75 11.25l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" vector-effect="non-scaling-stroke"/></svg></button>
           </div>
         </div>
       </div>

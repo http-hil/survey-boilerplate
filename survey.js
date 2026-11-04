@@ -21,6 +21,7 @@
     const questions = [...form.querySelectorAll('[data-step]')];
     const steps = done ? [...questions, done] : questions;
     const picked = new Map(); // radio group name → checked radio, for click-to-deselect
+    const fills = new Map(); // [data-fill] element → fallback text
     let index = 0;
     let busy = false;
 
@@ -74,6 +75,7 @@
         }
       });
       clearError(step);
+      updateFills();
       if (index === questions.length - 1) submit();
       else show(index + 1);
     }
@@ -113,6 +115,7 @@
       const text = event.target.closest('[data-other-text]');
       const check = text && text.closest('label').querySelector('[data-other-check]');
       if (check) setChecked(check, text.value !== '');
+      updateFills();
     });
 
     form.addEventListener('change', (event) => {
@@ -132,6 +135,8 @@
         if (input.checked && document.activeElement !== text) text.focus();
         if (!input.checked) text.value = '';
       }
+
+      updateFills();
     });
 
     function otherText(check) {
@@ -236,17 +241,36 @@
 
     /* Personal links and dates --------------------------------------------- */
 
-    // ?company=Northwind&project=brand fills [data-fill] and matching fields
+    // ?name=Sam&company=Northwind prefills the fields with those names.
+    // Each [data-fill] falls back to ?key= from the link, else its own text.
     function fillFromUrl() {
       const params = new URLSearchParams(location.search);
-      root.querySelectorAll('[data-fill]').forEach((el) => {
-        const value = params.get(el.dataset.fill);
-        if (value) el.textContent = value;
-      });
       form.querySelectorAll('.survey-field').forEach((field) => {
         const value = params.get(field.name);
         if (value && !field.value) field.value = value;
       });
+      root.querySelectorAll('[data-fill]').forEach((el) => {
+        fills.set(el, params.get(el.dataset.fill) || el.textContent);
+      });
+      updateFills();
+    }
+
+    // [data-fill="company"] shows the answer named "company": the typed text,
+    // or the one option picked (lowercased). Several, none or "Something else"
+    // show the fallback, so "the new website" becomes "the new project".
+    function updateFills() {
+      fills.forEach((fallback, el) => {
+        el.textContent = answer(el.dataset.fill) || fallback;
+      });
+    }
+
+    function answer(name) {
+      const given = [...form.querySelectorAll(`[name="${CSS.escape(name)}"]`)].filter((field) =>
+        field.type === 'checkbox' || field.type === 'radio' ? field.checked : field.value.trim()
+      );
+      if (given.length !== 1 || given[0].matches('[data-other-check]')) return '';
+      const field = given[0];
+      return field.classList.contains('survey-input') ? field.value.toLowerCase() : field.value.trim();
     }
 
     // [data-days] lists the next working days (5, or the number you set)
