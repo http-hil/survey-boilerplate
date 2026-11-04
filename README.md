@@ -55,7 +55,7 @@ Send each client a link with their name in it:
 yoursite.com/start?company=Northwind&project=brand%20identity
 ```
 
-`?company=` fills every `<span data-fill="company">` and the company field. `?project=` fills `<span data-fill="project">`. Without them the page shows "your company" and "website".
+`?company=` fills every `<span data-fill="company">` and the company field. `?project=` fills `<span data-fill="project">`. Without them the page shows "your company" and "project".
 
 Any field can be prefilled the same way: `?email=sam@northwind.com`.
 
