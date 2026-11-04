@@ -363,7 +363,6 @@ textarea.survey-field {
 
 .survey-other::placeholder {
   color: var(--color-muted);
-  font-style: italic;
   opacity: 1;
 }
 
