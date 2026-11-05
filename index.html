@@ -14,7 +14,6 @@
   One [data-step] = one full-screen question. Copy a step to add one, delete a step to remove one.
   Answer types: textarea, .survey-choices (radio or checkbox), .survey-chips, .survey-fields.
   [data-fill="company"] shows the answer named "company", else ?company= from the link, else its own text.
-  Personal links: ?name=Sam&company=Northwind
   Answers go to the form's action (Formspree, Basin, your own API), or listen for "survey:submit".
 -->
 <div class="survey" data-survey data-autofocus>
@@ -31,7 +30,7 @@
 
   <form class="survey-form" name="project-brief" method="post" action="">
 
-    <!-- Who's answering. ?name= and ?company= in the link fill these in. -->
+    <!-- Who's answering. Starts empty. ?name= and ?company= in the link can fill these in. -->
 
     <div class="survey-step" data-step role="group" aria-labelledby="q1">
       <div class="survey-column">

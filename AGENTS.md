@@ -23,8 +23,9 @@ No build step, no package manager. Open `index.html` or serve the folder (`pytho
    - `[data-survey-error]` for a step's error text
 4. Keep native inputs. Radios and checkboxes stay real `<input>` elements, visually hidden with `.survey-input`, so keyboard, screen readers and form posts work.
 5. No helper text, taglines or secondary labels. A step is a question, its answer, and Continue. Only a step with several text fields labels them (`.survey-label`).
-6. Field `name`s are readable slugs (`go-live`, `budget`). They are the keys people see in their inbox.
-7. The last `[data-step]` submits. Its button is `type="submit"` (labelled Send), not `data-survey-next`.
+6. Fields start empty. No example values in fields, demo links or docs.
+7. Field `name`s are readable slugs (`go-live`, `budget`). They are the keys people see in their inbox.
+8. The last `[data-step]` submits. Its button is `type="submit"` (labelled Send), not `data-survey-next`.
 
 ## Adding a question
 
@@ -39,7 +40,7 @@ Serve the folder and walk the whole survey:
 1. Enter advances. Shift+Enter adds a line in a textarea.
 2. Clicking a selected radio deselects it.
 3. Typing in "Something else" selects it. Clearing it deselects it.
-4. The name blocks Continue until filled. `?name=Sam&company=Northwind` prefills the first step.
+4. Every field starts empty. The name blocks Continue until filled.
 5. Pick only Website at "What are we building": the next questions say "the new website". Pick two: they say "project".
 6. Send on the last step shows "Thanks, <first name>." and the console logs the answers.
 7. Check at 375px wide and in dark mode.

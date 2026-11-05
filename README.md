@@ -4,7 +4,7 @@ A client-intake survey that asks the questions senior designers ask. One questio
 
 Three files and a font, no build, no dependencies: `index.html`, `survey.css`, `survey.js`, `fonts/`. Works offline.
 
-**Demo:** [http-hil.github.io/survey-boilerplate](https://http-hil.github.io/survey-boilerplate/?name=Sam&company=Northwind)
+**Demo:** [http-hil.github.io/survey-boilerplate](https://http-hil.github.io/survey-boilerplate/)
 
 ## Start
 
@@ -49,19 +49,13 @@ How choices behave:
 
 ## Personal links
 
-You send the link, so you already know who you're sending it to. Put their name in it:
-
-```
-yoursite.com/start?name=Sam&company=Northwind
-```
-
-The first question opens with Sam and Northwind filled in. Any text field can be prefilled this way, by its `name`.
+Every field starts empty. To fill in the first question for a client, add `?name=` and `?company=` to the link you send them. Any text field can be prefilled this way, by its `name`.
 
 ## Answers in the questions
 
 A `<span data-fill="company">` shows the answer named `company`:
 
-- Text: what they typed. "Can you explain in 2 sentences what Northwind does?"
+- Text: what they typed. Their company name replaces "your company".
 - Choices: the one option they picked, lowercased. Pick Website at "What are we building" and later questions say "the new website".
 - Several options, none, or "Something else": the fallback, so "the new project".
 

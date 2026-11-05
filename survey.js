@@ -241,7 +241,7 @@
 
     /* Personal links and dates --------------------------------------------- */
 
-    // ?name=Sam&company=Northwind prefills the fields with those names.
+    // Optional: ?name= and ?company= in the link prefill the fields with those names.
     // Each [data-fill] falls back to ?key= from the link, else its own text.
     function fillFromUrl() {
       const params = new URLSearchParams(location.search);
