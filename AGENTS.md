@@ -41,6 +41,6 @@ Serve the folder and walk the whole survey:
 2. Clicking a selected radio deselects it.
 3. Typing in "Something else" selects it. Clearing it deselects it.
 4. Every field starts empty. The name blocks Continue until filled.
-5. Pick only Website at "What are we building": the next questions say "the new website". Pick two: they say "project".
+5. Pick only Website at "What are we building": the next questions say "a new website". Pick two: they say "project".
 6. Send on the last step shows "Thanks, <first name>." and the console logs the answers.
 7. Check at 375px wide and in dark mode.

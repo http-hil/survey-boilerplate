@@ -257,7 +257,7 @@
 
     // [data-fill="company"] shows the answer named "company": the typed text,
     // or the one option picked (lowercased). Several, none or "Something else"
-    // show the fallback, so "the new website" becomes "the new project".
+    // show the fallback, so "a new website" becomes "a new project".
     function updateFills() {
       fills.forEach((fallback, el) => {
         el.textContent = answer(el.dataset.fill) || fallback;

@@ -56,8 +56,8 @@ Every field starts empty. To fill in the first question for a client, add `?name
 A `<span data-fill="company">` shows the answer named `company`:
 
 - Text: what they typed. Their company name replaces "your company".
-- Choices: the one option they picked, lowercased. Pick Website at "What are we building" and later questions say "the new website".
-- Several options, none, or "Something else": the fallback, so "the new project".
+- Choices: the one option they picked, lowercased. Pick Website at "What are we building" and later questions say "a new website".
+- Several options, none, or "Something else": the fallback, so "a new project".
 
 The fallback is `?company=` from the link, else the text inside the span ("your company", "project").
 
